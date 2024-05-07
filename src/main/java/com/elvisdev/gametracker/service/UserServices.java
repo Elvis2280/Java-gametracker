@@ -33,6 +33,7 @@ public class UserServices {
         user.setCreatedAt(LocalDateTime.now());
         user.setUpdateAt(LocalDateTime.now());
         user.setActive(true);
+        user.setVerified(false);
         User newUser = userAccount.save(user);
         log.info("User with id {} created", newUser.getId());
         return newUser;
@@ -60,6 +61,16 @@ public class UserServices {
         if(user.isPresent()){
             userAccount.delete(user.get());
             log.info("User with id {} deleted", id);
+        }
+        log.info("User with id {} not found", id);
+    }
+
+    public void verifyUser(String id){
+        Optional<User> user = userAccount.findById(id);
+        if(user.isPresent()){
+            user.get().setVerified(true);
+            userAccount.save(user.get());
+            return;
         }
         log.info("User with id {} not found", id);
     }
