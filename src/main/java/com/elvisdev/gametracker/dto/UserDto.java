@@ -10,6 +10,8 @@ import lombok.Data;
 @Data
 public class UserDto {
     @NotNull
+    private String id;
+    @NotNull
     @Size(min = 3, max = 40)
     private String username;
     @NotNull
